@@ -1,21 +1,24 @@
 package benchmarks
 
 import (
-	"log"
 	"net/http"
 	rip "request-ip"
 	"testing"
 )
 
-func BenchmarkGetClientIP(b *testing.B) {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		log.Println("Your client ip is ", rip.GetClientIP(r))
+func startHTTPServer() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		rip.GetClientIP(r)
 	})
 	go func() {
-		http.ListenAndServe(":9000", nil)
+		http.ListenAndServe(":9999", mux)
 	}()
+}
+func BenchmarkGetClientIP(b *testing.B) {
+	startHTTPServer()
 	client := &http.Client{}
-	for n := 0; n < 5; n++ {
-		client.Get("http://localhost:9000/")
+	for n := 0; n < 1000; n++ {
+		client.Get("http://localhost:9999/")
 	}
 }
