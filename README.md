@@ -1,6 +1,6 @@
 # Request - IP
 
-![Request-IP](logo.png)
+![](logo.PNG)
 
 This package is useful to get the client IP address of incoming HTTP requests in GoLang.
 
