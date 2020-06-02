@@ -44,10 +44,3 @@ func TestGetClientIP(t *testing.T) {
 		})
 	}
 }
-
-func BenchGetClientIP(b *testing.B) {
-	r := *http.Request{}
-	for n := 0; n < b.N; n++ {
-		sendRequest(client, "http://127.0.0.1:8080/")
-	}
-}
