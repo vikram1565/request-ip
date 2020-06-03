@@ -2,8 +2,9 @@ package benchmarks
 
 import (
 	"net/http"
-	rip "request-ip"
 	"testing"
+
+	rip "github.com/vikram1565/request-ip"
 )
 
 func startHTTPServer() {
